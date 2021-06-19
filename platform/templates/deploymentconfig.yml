@@ -1,0 +1,31 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: squid
+spec:
+  replicas: 1
+  selector:
+    app: squid
+  template:
+    metadata:
+      labels:
+        app: squid
+    spec:
+      volumes:
+        - name: proxy-config
+          configMap:
+            name: proxy-configmap
+        - name: data
+          emptyDir: {}
+      containers:
+        - name: squid
+          image: boonkeato/openshift-squid:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3128
+              protocol: TCP
+          volumeMounts:
+            - name: proxy-config
+              mountPath: /etc/squid
+            - name: data
+              mountPath: /var/spool/squid
