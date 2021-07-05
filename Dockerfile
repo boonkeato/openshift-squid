@@ -1,5 +1,5 @@
 FROM ubuntu:bionic-20190612
-LABEL maintainer="boonkeat.ong@experian.com"
+LABEL maintainer="boonkeat@gmail.com"
 
 ENV SQUID_VERSION=3.5.27 \
     SQUID_CACHE_DIR=/var/spool/squid \
